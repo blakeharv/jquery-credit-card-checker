@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Credit Card Checker Demo</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="src/jquery.credit-card-checker.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#card_number').creditCardChecker();
+        /* $('#card_number').creditCardChecker({ cardIcons : '.my_cards'});  Set the card icons to a different selector */
+        /* $('#card_number').creditCardChecker('destroy'); Remove the creditCardChecker's bound events */
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <label for="card_number">Credit Card Number</label>
+      <input type="text" name="card_number" id="card_number" placeholder="ex 5555 5555 5555 5555">
+      <ul class="accepted_cards">
+        <li class="card visa">Visa</li>
+        <li class="card mastercard">MasterCard</li>
+        <li class="card discover">Discover</li>
+        <li class="card amex">American Express</li>
+      </ul>
+    </form>
+  </body>
+</html>
