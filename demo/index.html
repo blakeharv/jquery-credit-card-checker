@@ -3,6 +3,7 @@
     <title>Credit Card Checker Demo</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="../jquery.credit-card-checker.js"></script>
+    <link href="styles.css" media="all" rel="stylesheet" type="text/css" />
     <script>
       $(document).ready(function() {
         $('#card_number').creditCardChecker();
@@ -12,10 +13,16 @@
     </script>
   </head>
   <body>
+    <ul>
+      <li>4 &mdash; Visa</li>
+      <li>51-55 &mdash; Mastercard</li>
+      <li>34, 37 &mdash; Amex</li>
+      <li>6011, 62, 64, 65 &mdash; Discover</li>
+    </ul>
     <form>
       <label for="card_number">Credit Card Number</label>
       <input type="text" name="card_number" id="card_number" placeholder="ex 5555 5555 5555 5555">
-      <ul class="accepted_cards">
+      <ul class="accepted_credit_cards">
         <li class="card visa">Visa</li>
         <li class="card mastercard">MasterCard</li>
         <li class="card discover">Discover</li>

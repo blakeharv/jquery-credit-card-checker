@@ -1,0 +1,33 @@
+.accepted_credit_cards { 
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.accepted_credit_cards .card {
+  display: inline-block;
+  border: 0;
+  text-indent: -999em;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  text-align: left;
+  direction: ltr;
+  background-image: url('credit-cards.png');
+  background-repeat: no-repeat;
+  float: left;
+  height: 22px;
+  margin-left: 2px;
+  width: 29px;
+}
+
+.accepted_credit_cards .card.visa         { background-position: 0 0; }
+.accepted_credit_cards .card.mastercard   { background-position: -29px 0; }
+.accepted_credit_cards .card.discover     { background-position: -58px 0; }
+.accepted_credit_cards .card.amex         { background-position: -87px 0; }
+
+.accepted_credit_cards .card.no_match {
+  opacity: .5;
+  filter: gray;
+  -webkit-filter: grayscale(100%);
+}

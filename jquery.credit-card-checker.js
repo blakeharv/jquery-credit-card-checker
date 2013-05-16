@@ -1,7 +1,7 @@
 (function( $ ) {
 
   var defaults = {
-    cardIcons : '.accepted_cards'
+    cardIcons : '.accepted_credit_cards'
   };
 
   var knownCards = {
