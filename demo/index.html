@@ -13,13 +13,7 @@
     </script>
   </head>
   <body>
-    <ul>
-      <li>4 &mdash; Visa</li>
-      <li>51-55 &mdash; Mastercard</li>
-      <li>34, 37 &mdash; Amex</li>
-      <li>6011, 62, 64, 65 &mdash; Discover</li>
-    </ul>
-    <form>
+    <form action="">
       <label for="card_number">Credit Card Number</label>
       <input type="text" name="card_number" id="card_number" placeholder="ex 5555 5555 5555 5555">
       <ul class="accepted_credit_cards">
@@ -28,6 +22,14 @@
         <li class="card discover">Discover</li>
         <li class="card amex">American Express</li>
       </ul>
+      <label for="card_type">
+        Card Type<br>
+        <span class="help-tip">(This would be a hidden field populated by the script. It's shown here for demo purposes ONLY.)</span>
+      </label>
+      <input type="radio" name="card_type" value="visa">Visa</br>
+      <input type="radio" name="card_type" value="mastercard">Mastercard</br>
+      <input type="radio" name="card_type" value="discover">Discover</br>
+      <input type="radio" name="card_type" value="amex">American Express
     </form>
   </body>
 </html>

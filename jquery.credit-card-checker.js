@@ -1,7 +1,8 @@
 (function( $ ) {
 
   var defaults = {
-    cardIcons : '.accepted_credit_cards'
+    cardIcons : '.accepted_credit_cards',
+    radioName : 'card_type'
   };
 
   var knownCards = {
@@ -65,6 +66,8 @@
 
     _setCardType : function(formField, settings) {
 
+      var selector = ["input[type='radio'][name='", settings.radioName,"']"].join("");
+      var $cardTypeRadios = $(selector);
       var $acceptedCards = $(settings.cardIcons);
 
       $(formField).bind('change keyup input', function() {
@@ -74,9 +77,11 @@
             $(this).toggleClass('match', $(this).hasClass(type));
             $(this).toggleClass('no_match', !$(this).hasClass(type));
           });
+          $cardTypeRadios.filter("[value='"+type+"']").prop('checked', true);
         }
         else {
-          $acceptedCards.find('.card').removeClass('match no_match'); 
+          $acceptedCards.find('.card').removeClass('match no_match');
+          $cardTypeRadios.prop('checked',false); 
         }
       });
     }
