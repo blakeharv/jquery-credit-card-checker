@@ -1,12 +1,13 @@
 (function($) {
   'use strict';
+  var defaults, knownCards, methods;
 
-  var defaults = {
+  defaults = {
     cardIcons : '.accepted_credit_cards',
     radioName : 'card_type'
   };
 
-  var knownCards = {
+  knownCards = {
     'visa': {
       prefixes: [4],
       name: 'Visa'
@@ -25,7 +26,7 @@
     }
   };
 
-  var methods = {
+  methods = {
 
     init: function(options) {
 
@@ -46,17 +47,18 @@
     },
 
     _detectCardType : function(cardNumber) {
-      var cards = knownCards, ci;
+      var cards = knownCards, ci, c, pi, p, pl;
       cardNumber = cardNumber.replace(/\D/g, '');
 
       for (ci in cards) {
-        var c = cards[ci];
+        c = cards[ci];
         if (cards.hasOwnProperty(ci)) {
-          for (var pi=0,pl=c.prefixes.length; pi < pl; ++pi) {
-            var p = c.prefixes[pi];
+          for (pi = 0, pl = c.prefixes.length; pi < pl; pi += 1) {
+            p = c.prefixes[pi];
             if (c.prefixes.hasOwnProperty(pi)) {
-              if (new RegExp('^' + p.toString()).test(cardNumber))
+              if (new RegExp('^' + p.toString()).test(cardNumber)) {
                 return ci;
+              }
             }
           }
         }
@@ -66,37 +68,36 @@
 
     _setCardType : function(formField, settings) {
 
-      var selector = ["input[type='radio'][name='", settings.radioName,"']"].join("");
-      var $cardTypeRadios = $(selector);
-      var $acceptedCards = $(settings.cardIcons);
+      var selector, $cardTypeRadios, $acceptedCards;
+
+      selector = ["input[type='radio'][name='", settings.radioName, "']"].join("");
+      $cardTypeRadios = $(selector);
+      $acceptedCards = $(settings.cardIcons);
 
       $(formField).bind('change keyup input', function() {
-        var type = methods._detectCardType( $(this).val() );
-        if(type) {
-          $acceptedCards.find('.card').each(function(){
+        var type = methods._detectCardType($(this).val());
+        if (type) {
+          $acceptedCards.find('.card').each(function() {
             $(this).toggleClass('match', $(this).hasClass(type));
             $(this).toggleClass('no_match', !$(this).hasClass(type));
           });
-          $cardTypeRadios.filter("[value='"+type+"']").prop('checked', true);
-        }
-        else {
+          $cardTypeRadios.filter("[value='" + type + "']").prop('checked', true);
+        } else {
           $acceptedCards.find('.card').removeClass('match no_match');
-          $cardTypeRadios.prop('checked',false); 
+          $cardTypeRadios.prop('checked', false);
         }
       });
     }
-
   };
 
-  $.fn.creditCardChecker = function methodRouter (method) {
-    if ( methods[method] ) {
-      return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-    } else if ( typeof method === 'object' || ! method ) {
-      return methods.init.apply( this, arguments );
+  $.fn.creditCardChecker = function methodRouter(method) {
+    if (methods[method]) {
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+    } else if (typeof method === 'object' || !method) {
+      return methods.init.apply(this, arguments);
     } else {
-      $.error( 'Method ' +  method + ' does not exist on jQuery.creditCardChecker' );
-    } 
+      $.error('Method ' +  method + ' does not exist on jQuery.creditCardChecker');
+    }
   };
 
-})( jQuery );
-
+})(jQuery);
