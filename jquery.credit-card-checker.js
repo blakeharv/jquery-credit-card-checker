@@ -1,3 +1,5 @@
+/*globals jQuery */
+
 (function($) {
   'use strict';
   var defaults, knownCards, methods;
@@ -33,7 +35,7 @@
       var settings = $.extend({}, defaults, options);
 
       return this.each(function() {
-        methods._setCardType($(this), settings);
+        methods.setCardType($(this), settings);
       });
 
     },
@@ -46,16 +48,16 @@
 
     },
 
-    _detectCardType : function(cardNumber) {
+    detectCardType : function(cardNumber) {
       var cards = knownCards, ci, c, pi, p, pl;
       cardNumber = cardNumber.replace(/\D/g, '');
 
       for (ci in cards) {
-        c = cards[ci];
         if (cards.hasOwnProperty(ci)) {
+          c = cards[ci];
           for (pi = 0, pl = c.prefixes.length; pi < pl; pi += 1) {
-            p = c.prefixes[pi];
             if (c.prefixes.hasOwnProperty(pi)) {
+              p = c.prefixes[pi];
               if (new RegExp('^' + p.toString()).test(cardNumber)) {
                 return ci;
               }
@@ -66,7 +68,7 @@
       return false;
     },
 
-    _setCardType : function(formField, settings) {
+    setCardType : function(formField, settings) {
 
       var selector, $cardTypeRadios, $acceptedCards;
 
@@ -75,7 +77,7 @@
       $acceptedCards = $(settings.cardIcons);
 
       $(formField).bind('change keyup input', function() {
-        var type = methods._detectCardType($(this).val());
+        var type = methods.detectCardType($(this).val());
         if (type) {
           $acceptedCards.find('.card').each(function() {
             $(this).toggleClass('match', $(this).hasClass(type));
@@ -93,11 +95,11 @@
   $.fn.creditCardChecker = function methodRouter(method) {
     if (methods[method]) {
       return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || !method) {
-      return methods.init.apply(this, arguments);
-    } else {
-      $.error('Method ' +  method + ' does not exist on jQuery.creditCardChecker');
     }
+    if (typeof method === 'object' || !method) {
+      return methods.init.apply(this, arguments);
+    }
+    $.error('Method ' +  method + ' does not exist on jQuery.creditCardChecker');
   };
 
-})(jQuery);
+}(jQuery));
